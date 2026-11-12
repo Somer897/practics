@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Главная — МойСайт</title>
+  <link rel="stylesheet" href="static/home.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">МойСайт</div>
+    <nav class="nav">
+      <a href="home" class="active">Главная</a>
+      <a href="main">Личный кабинет</a>
+      <a href="login">Вход</a>
+      <a href="register">Регистрация</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <section class="hero">
+      <h1 id="greeting">Добро пожаловать на <span>МойСайт</span>!</h1>
+      <p>
+        Простой демонстрационный сайт на чистом HTML, CSS и JavaScript.
+        Никаких фреймворков и сборки — просто откройте файл в браузере.
+      </p>
+      <div class="hero-buttons">
+        <a href="register" class="btn btn-primary">Создать аккаунт</a>
+        <a href="login" class="btn btn-outline">Войти</a>
+      </div>
+    </section>
+
+    <section class="features">
+      <article class="card">
+        <div class="badge">01</div>
+        <h3>Быстрый старт</h3>
+        <p>Каждая страница — отдельный HTML-файл, к которому подключены свои файлы стилей CSS и скриптов JS.</p>
+      </article>
+      <article class="card">
+        <div class="badge">02</div>
+        <h3>Адаптивность</h3>
+        <p>Вёрстка подстраивается под экран телефона, планшета и компьютера.</p>
+      </article>
+      <article class="card">
+        <div class="badge">03</div>
+        <h3>Без зависимостей</h3>
+        <p>Страницы работают офлайн: не нужны ни база данных, ни сервер, ни интернет.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © <span id="year"></span> МойСайт. Все права защищены.
+  </footer>
+
+  <script src="sources/home.js"></script>
+</body>
+</html>

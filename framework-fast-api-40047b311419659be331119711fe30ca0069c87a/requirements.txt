@@ -1,0 +1,5 @@
+pandas
+fastapi
+pillow
+uvicorn
+jinja2

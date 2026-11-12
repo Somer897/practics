@@ -1,0 +1,449 @@
+/* ════════════════════════════════════════════════════════════════
+   style.css — единое оформление страниц входа, регистрации
+   и главной (login.html, register.html, main.html)
+
+   ✓ HTML не изменяется — стили «цепляются» к существующей разметке
+   ✓ Светлая / тёмная тема: класс .dark на <body> ставит уже
+     существующая функция toggleTheme() — JS дописывать не нужно
+   ════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+
+/* ─────────────────── Палитра (светлая тема) ─────────────────── */
+:root {
+  --bg-image: linear-gradient(-45deg, #eef2ff, #fdf2f8, #e0f2fe, #ede9fe);
+  --card-bg: rgba(255, 255, 255, 0.72);
+  --card-border: rgba(255, 255, 255, 0.85);
+  --card-glow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --accent: #6366f1;
+  --accent-grad: linear-gradient(135deg, #6366f1, #a855f7);
+  --danger: #ef4444;
+  --input-bg: rgba(255, 255, 255, 0.85);
+  --input-border: #dce3f2;
+  --autofill: #ffffff;
+  --shadow: 0 24px 60px rgba(79, 70, 229, 0.18);
+  --ring: rgba(99, 102, 241, 0.20);
+  --hover-soft: rgba(99, 102, 241, 0.08);
+  --blob-1: rgba(99, 102, 241, 0.42);
+  --blob-2: rgba(236, 72, 153, 0.30);
+  --radius: 20px;
+}
+
+/* ─────────────────── Палитра (тёмная тема) ──────────────────── */
+body.dark {
+  --bg-image: linear-gradient(-45deg, #0b1020, #191233, #0b1e3a, #101028);
+  --card-bg: rgba(17, 22, 41, 0.72);
+  --card-border: rgba(148, 163, 184, 0.18);
+  --card-glow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --text: #e2e8f0;
+  --text-muted: #92a3b8;
+  --accent: #8b93ff;
+  --accent-grad: linear-gradient(135deg, #818cf8, #e879f9);
+  --danger: #fb7185;
+  --input-bg: rgba(9, 14, 29, 0.55);
+  --input-border: rgba(148, 163, 184, 0.30);
+  --autofill: #121a30;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --ring: rgba(129, 140, 248, 0.25);
+  --hover-soft: rgba(129, 140, 248, 0.12);
+  --blob-1: rgba(99, 102, 241, 0.30);
+  --blob-2: rgba(217, 70, 239, 0.16);
+}
+
+/* ────────────────────────── База ────────────────────────────── */
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 3rem 1rem;
+  font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  color: var(--text);
+  background: var(--bg-image);
+  background-attachment: fixed;
+  background-size: 400% 400%;
+  animation: bg-flow 18s ease-in-out infinite;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Светящиеся пятна на фоне */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+}
+body::before {
+  width: 480px; height: 480px;
+  top: -140px; left: -140px;
+  background: var(--blob-1);
+  animation: drift 16s ease-in-out infinite alternate;
+}
+body::after {
+  width: 430px; height: 430px;
+  right: -130px; bottom: -150px;
+  background: var(--blob-2);
+  animation: drift 21s ease-in-out infinite alternate-reverse;
+}
+
+/* ──────────────── Стеклянные карточки ──────────────────────── */
+.container,
+body > div:not(.container) {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: auto; /* центрирование и корректный скролл при переполнении */
+  padding: 2.4rem 2.2rem;
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow), var(--card-glow);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  backdrop-filter: blur(22px) saturate(1.4);
+  animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.container { max-width: 430px; display: flex; flex-direction: column; gap: 1.25rem; }
+body > div:not(.container) { max-width: 680px; animation-delay: 0.12s; }
+
+/* Тонкая градиентная окантовка карточки */
+.container::before,
+body > div:not(.container)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg,
+              rgba(99, 102, 241, 0.65),
+              rgba(168, 85, 247, 0.30),
+              rgba(56, 189, 248, 0.50));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Пустой блок контента (base-шаблон без block) не рисуем */
+body > div:not(.container):not(:has(*)) { display: none; }
+
+/* ─────────────────────── Заголовки ─────────────────────────── */
+h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--accent);
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  h2 {
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+h2::after {
+  content: "";
+  display: block;
+  width: 52px;
+  height: 4px;
+  margin-top: 0.55rem;
+  border-radius: 99px;
+  background: var(--accent-grad);
+}
+
+/* ─────────────────── Сообщение об ошибке ───────────────────── */
+p.error {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--danger);
+  background: rgba(239, 68, 68, 0.10);
+  border: 1px solid rgba(239, 68, 68, 0.30);
+  border-radius: 12px;
+  animation: shake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+/* Абзац с хэшем пароля на главной — в виде «код-плашки» */
+.container > p:not(.error) {
+  margin: 0;
+  padding: 0.9rem 1.05rem;
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  background: rgba(99, 102, 241, 0.07);
+  border: 1px dashed rgba(99, 102, 241, 0.35);
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+.container > p:not(.error) b { color: var(--accent); font-family: inherit; }
+
+/* ───────────────────── Формы и поля ────────────────────────── */
+form { margin: 0; font-size: 0.95rem; }
+form br { display: none; } /* переносы делаем сами, чтобы отступы были ровными */
+
+input[type="text"],
+input[type="password"] {
+  display: block;
+  width: 100%;
+  margin: 0 0 1rem;
+  padding: 0.9rem 1.1rem;
+  font: inherit;
+  color: var(--text);
+  background: var(--input-bg);
+  border: 1.5px solid var(--input-border);
+  border-radius: 13px;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+input::placeholder { color: var(--text-muted); opacity: 0.75; }
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="file"]:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--ring);
+}
+
+/* Аккуратный автозаполнение Chrome без жёлтой заливки */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--autofill) inset;
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+  border-color: var(--input-border);
+  border-radius: 13px;
+}
+
+/* Чекбокс «Показать пароль» */
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  width: 21px;
+  height: 21px;
+  margin: 0.15rem 0.6rem 1.1rem 0;
+  vertical-align: middle;
+  border: 1.5px solid var(--input-border);
+  border-radius: 7px;
+  background: var(--input-bg);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  left: 6.5px;
+  top: 2.5px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.18s ease;
+}
+input[type="checkbox"]:hover { border-color: var(--accent); }
+input[type="checkbox"]:checked {
+  background-color: var(--accent);
+  background-image: var(--accent-grad);
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.40);
+}
+input[type="checkbox"]:checked::after { transform: rotate(45deg) scale(1); }
+input[type="checkbox"]:focus-visible { box-shadow: 0 0 0 4px var(--ring); outline: none; }
+
+/* Поле выбора файла — пунктирная зона загрузки */
+input[type="file"] {
+  display: block;
+  width: 100%;
+  margin: 0 0 1.15rem;
+  padding: 0.75rem 0.9rem;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1.5px dashed var(--input-border);
+  border-radius: 13px;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+input[type="file"]:hover {
+  border-color: var(--accent);
+  background: var(--hover-soft);
+}
+input[type="file"]::file-selector-button,
+input[type="file"]::-webkit-file-upload-button {
+  margin-right: 0.9rem;
+  padding: 0.55rem 1rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent-grad);
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+input[type="file"]::file-selector-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(99, 102, 241, 0.35);
+}
+
+/* ────────────────────────── Кнопки ─────────────────────────── */
+button {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border: none;
+  border-radius: 13px;
+  padding: 0.9rem 1.3rem;
+  cursor: pointer;
+}
+
+/* Главная кнопка формы («Войти», «Зарегистрировать») */
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  color: #fff;
+  background: var(--accent-grad);
+  background-size: 160% 160%;
+  box-shadow: 0 12px 26px rgba(99, 102, 241, 0.38);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, background-position 0.4s ease;
+}
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(99, 102, 241, 0.45);
+  background-position: 100% 50%;
+}
+button[type="submit"]:active { transform: translateY(0) scale(0.985); }
+
+/* Кнопка «Сменить тему» (type не указан) */
+button:not([type="submit"]) {
+  display: block;
+  width: 100%;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1.5px solid var(--input-border);
+  transition: color 0.25s ease, border-color 0.25s ease,
+              background-color 0.25s ease, transform 0.2s ease;
+}
+button:not([type="submit"])::before { content: "🌙 "; }
+body.dark button:not([type="submit"])::before { content: "☀️ "; }
+button:not([type="submit"]):hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--hover-soft);
+  transform: translateY(-1px);
+}
+
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ────────────────────────── Ссылки ─────────────────────────── */
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Ссылка выхода на главной — как вторичная кнопка */
+.container a {
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1.3rem;
+  text-align: center;
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1.5px solid var(--input-border);
+  border-radius: 13px;
+  transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+.container a:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+  background: rgba(239, 68, 68, 0.08);
+  text-decoration: none;
+}
+
+/* ────────── Содержимое блока контента на главной ───────────── */
+body > div:not(.container) p { line-height: 1.65; margin: 0.4rem 0; }
+body > div:not(.container) img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(2, 6, 23, 0.18);
+}
+body > div:not(.container) ul,
+body > div:not(.container) ol { margin: 0.4rem 0; padding-left: 1.3rem; }
+body > div:not(.container) li { margin: 0.35rem 0; line-height: 1.5; }
+body > div:not(.container) li::marker { color: var(--accent); }
+body > div:not(.container) table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+body > div:not(.container) th,
+body > div:not(.container) td {
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--input-border);
+}
+body > div:not(.container) th {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+::selection { background: rgba(99, 102, 241, 0.30); }
+
+/* ──────────────────────── Анимации ─────────────────────────── */
+@keyframes bg-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(60px, 40px) scale(1.15); }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* ───────────────── Мобильные экраны и доступность ───────────── */
+@media (max-width: 480px) {
+  .container,
+  body > div:not(.container) { padding: 1.7rem 1.3rem; border-radius: 16px; }
+  h2 { font-size: 1.45rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

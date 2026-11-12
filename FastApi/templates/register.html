@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация — МойСайт</title>
+  <link rel="stylesheet" href="static/register.css">
+</head>
+<body>
+  <main class="card">
+    <div id="register-view">
+      <h1>Создать аккаунт</h1>
+      <p class="subtitle">Заполните форму — это займёт минуту</p>
+
+      <form id="register-form" novalidate>
+        <div class="field">
+          <label for="name">Имя</label>
+          <input type="text" id="name" placeholder="Иван Иванов" autocomplete="name">
+          <div class="error" id="name-error"></div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+          <div class="error" id="email-error"></div>
+        </div>
+
+        <div class="field">
+          <label for="password">Пароль</label>
+          <input type="password" id="password" placeholder="Минимум 6 символов" autocomplete="new-password">
+          <div class="strength"><div class="strength-bar" id="strength-bar"></div></div>
+          <div class="strength-label" id="strength-label"></div>
+          <div class="error" id="password-error"></div>
+        </div>
+
+        <div class="field">
+          <label for="confirm">Повторите пароль</label>
+          <input type="password" id="confirm" placeholder="Ещё раз" autocomplete="new-password">
+          <div class="error" id="confirm-error"></div>
+        </div>
+
+        <button type="submit" class="btn" id="submit-btn">Зарегистрироваться</button>
+      </form>
+
+      <p class="hint">Уже есть аккаунт? <a href="login" class="link">Войти</a></p>
+    </div>
+
+    <div class="success" id="success-view">
+      <div class="success-icon">&#10003;</div>
+      <h2>Аккаунт создан!</h2>
+      <p id="success-text">Теперь вы можете войти, используя свои данные.</p>
+      <a href="login" class="btn">Перейти к входу</a>
+    </div>
+  </main>
+
+  <script src="sources/register.js"></script>
+</body>
+</html>

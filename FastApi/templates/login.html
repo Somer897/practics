@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход — МойСайт</title>
+  <link rel="stylesheet" href="static/login.css">
+</head>
+<body>
+  <main class="card">
+    <h1>С возвращением!</h1>
+    <p class="subtitle">Войдите в свой аккаунт</p>
+
+    <div class="form-error" id="form-error"></div>
+
+    <form id="login-form" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+        <div class="error" id="email-error"></div>
+      </div>
+
+      <div class="field">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" placeholder="Минимум 6 символов" autocomplete="current-password">
+        <div class="error" id="password-error"></div>
+      </div>
+
+      <div class="row">
+        <label class="checkbox">
+          <input type="checkbox" id="show-password"> Показать пароль
+        </label>
+        <a href="#" class="link" id="forgot">Забыли пароль?</a>
+      </div>
+
+      <button type="submit" class="btn" id="submit-btn">Войти</button>
+    </form>
+
+    <p class="hint">
+      Нет аккаунта? <a href="register" class="link">Зарегистрируйтесь</a><br>
+      Демо-режим: подойдут любые корректные данные.
+    </p>
+  </main>
+
+  <script src="sources/login.js"></script>
+</body>
+</html>

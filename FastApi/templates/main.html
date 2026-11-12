@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Личный кабинет — МойСайт</title>
+  <link rel="stylesheet" href="static/main.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">МойСайт — Кабинет</div>
+    <div class="user-box">
+      <div class="avatar" id="avatar">Г</div>
+      <div class="username" id="username">Гость</div>
+      <a href="login" class="logout" id="logout">Выйти</a>
+    </div>
+  </header>
+
+  <main class="main">
+    <h1 class="page-title">Личный кабинет</h1>
+    <p class="page-subtitle">Демонстрационная страница: задачи сохраняются в вашем браузере.</p>
+
+    <section class="stats">
+      <div class="stat-card">
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-label">Всего задач</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-done">0</div>
+        <div class="stat-label">Выполнено</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-active">0</div>
+        <div class="stat-label">Активных</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="clock">--:--:--</div>
+        <div class="stat-label">Текущее время</div>
+      </div>
+    </section>
+
+    <section class="todo-card">
+      <h2>Мои задачи</h2>
+
+      <div class="todo-form">
+        <input type="text" class="todo-input" id="todo-input" placeholder="Новая задача...">
+        <button class="btn-add" id="add-btn" type="button">Добавить</button>
+      </div>
+
+      <ul class="task-list" id="task-list"></ul>
+    </section>
+  </main>
+
+  <script src="sources/main.js"></script>
+</body>
+</html>

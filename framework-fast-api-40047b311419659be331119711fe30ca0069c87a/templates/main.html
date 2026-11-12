@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Добро пожаловать, {{ username }}!</h2>
+    <p><b>Хэшированный пароль:</b> {{ password_hash }}</p>
+    <button onclick="toggleTheme()">Сменить тему</button>
+    <a href="/logout">Кнопка выхода из аккаунта</a>
+</div>
+<div>
+    {% block content %}{% endblock %}
+</div>
+<script>
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+}
+</script>
+</body>
+</html>
